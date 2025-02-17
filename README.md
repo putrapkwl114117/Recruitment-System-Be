@@ -106,9 +106,4 @@ Jika Anda ingin berkontribusi pada proyek ini, ikuti langkah-langkah berikut:
 3. Lakukan perubahan dan uji aplikasi.
 4. Kirim pull request ke repositori utama.
 
-## Lisensi
-Proyek ini dilisensikan di bawah [MIT License](LICENSE).
 
-```
-
-Anda dapat menyesuaikan bagian seperti deskripsi aplikasi dan instruksi lebih lanjut sesuai dengan kebutuhan proyek Anda.
