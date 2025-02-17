@@ -9,34 +9,34 @@ Proyek ini adalah aplikasi yang dibangun menggunakan Laravel 11 sebagai backend 
 ## Persyaratan
 Sebelum menjalankan aplikasi ini, pastikan Anda telah memenuhi persyaratan berikut:
 
-### 1. **PHP**
+1. PHP
 - PHP 8.1 atau versi yang lebih tinggi
 
-### 2. **Laravel 11**
+2. Laravel 11
 - Laravel versi 11.x
 
-### 3. **Database**
+3. Database
 - MySQL 5.7 atau versi yang lebih tinggi
 
-### 4. **Composer**
+4. Composer
 - Composer untuk mengelola dependensi PHP
 
-### 5. **Node.js (Opsional)**
+5. Node.js (Opsional)
 - Node.js untuk mengelola dependensi frontend (jika aplikasi Anda menggunakan frontend seperti Vue.js, React.js, dll)
 
-### 6. **Redis (Opsional)**
+6. Redis (Opsional)
 - Redis untuk caching dan antrian (jika dibutuhkan oleh aplikasi Anda)
 
 ## Instalasi
 Ikuti langkah-langkah di bawah ini untuk menyiapkan proyek ini di lingkungan pengembangan Anda.
 
-### 1. Clone Repository
+1. Clone Repository
 Clone repositori ini ke komputer lokal Anda:
 ```bash
 git clone https://github.com/username/repo-name.git
 ```
 
-### 2. Masuk ke Direktori Proyek
+2. Masuk ke Direktori Proyek
 Masuk ke dalam direktori proyek:
 ```bash
 cd repo-name
@@ -48,7 +48,7 @@ Jalankan Composer untuk menginstal dependensi PHP:
 composer install
 ```
 
-### 4. Konfigurasi `.env`
+ 4. Konfigurasi `.env`
 Salin file `.env.example` menjadi file `.env`:
 ```bash
 cp .env.example .env
@@ -64,30 +64,26 @@ DB_USERNAME=root
 DB_PASSWORD=secret
 ```
 
-### 5. Generate Key Aplikasi
+5. Generate Key Aplikasi
 Jalankan perintah berikut untuk menghasilkan kunci aplikasi yang unik:
 ```bash
 php artisan key:generate
 ```
 
-### 6. Migrasi Database
+6. Migrasi Database
 Jika proyek ini membutuhkan migrasi database, jalankan perintah migrasi:
 ```bash
 php artisan migrate
 ```
 
-### 7. Menjalankan Aplikasi
+ 7. Menjalankan Aplikasi
 Jalankan server pengembangan menggunakan Artisan:
 ```bash
 php artisan serve
 ```
 Akses aplikasi di browser melalui `http://127.0.0.1:8000`
 
-## Pengujian
-Untuk menjalankan pengujian aplikasi, Anda dapat menjalankan perintah berikut:
-```bash
-php artisan test
-```
+
 
 ## Struktur Direktori
 Berikut adalah struktur dasar proyek Laravel ini:
