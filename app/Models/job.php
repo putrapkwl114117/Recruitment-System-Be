@@ -13,8 +13,9 @@ class Job extends Model
         'description',
         'salary',
         'category',
+        'type',
         'location',
-        'user_id',  
+        'user_id',
     ];
     public function user()
     {

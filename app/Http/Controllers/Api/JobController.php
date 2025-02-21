@@ -29,6 +29,7 @@ class JobController extends Controller
             'description' => 'required|string',
             'salary' => 'required|numeric',
             'category' => 'required|string',
+            'type' => 'required|string',
             'location' => 'required|string',
         ]);
         $job = Job::create([
@@ -36,8 +37,9 @@ class JobController extends Controller
             'description' => $request->description,
             'salary' => $request->salary,
             'category' => $request->category,
+            'type' => $request->type,
             'location' => $request->location,
-            'user_id' => Auth::id(), 
+            'user_id' => Auth::id(),
         ]);
         return response()->json([
             'message' => 'Job created successfully',
@@ -53,6 +55,7 @@ class JobController extends Controller
             'description' => 'required|string',
             'salary' => 'required|numeric',
             'category' => 'required|string',
+            'type' => 'required|string',
             'location' => 'required|string',
         ]);
         $job = Job::findOrFail($id);
@@ -61,6 +64,7 @@ class JobController extends Controller
             'description' => $request->description,
             'salary' => $request->salary,
             'category' => $request->category,
+            'type' => $request->type,
             'location' => $request->location,
         ]);
         return response()->json([
