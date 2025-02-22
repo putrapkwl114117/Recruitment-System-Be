@@ -56,6 +56,7 @@ class AuthController extends Controller
             'message' => 'User logged in successfully',
             'token' => $token, 
             'name' => $user->name, 
+            'user_id' => $user->id,
         ], 200);
     }
 

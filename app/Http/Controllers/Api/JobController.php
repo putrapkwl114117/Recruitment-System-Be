@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class JobController extends Controller
 {
-    // Menampilkan daftar pekerjaan
-    public function index()
+    public function index(Request $request)
     {
-        $jobs = Job::all();
+        $userId = $request->user_id;
+        $jobs = Job::where('user_id', $userId)->get(); 
         return response()->json($jobs);
     }
     public function show($id)
@@ -39,12 +39,19 @@ class JobController extends Controller
             'category' => $request->category,
             'type' => $request->type,
             'location' => $request->location,
-            'user_id' => Auth::id(),
+            'user_id' => Auth::id(), 
         ]);
         return response()->json([
             'message' => 'Job created successfully',
             'job' => $job,
         ], 201);
+    }
+
+
+    public function allJobs()
+    {
+        $jobs = Job::all(); 
+        return response()->json($jobs);
     }
 
     // Mengupdate pekerjaan yang sudah ada
@@ -72,6 +79,7 @@ class JobController extends Controller
             'job' => $job,
         ], 200);
     }
+
     // Menghapus pekerjaan
     public function destroy($id)
     {

@@ -12,6 +12,7 @@ Route::middleware('auth:api')->post('/logout', [AuthController::class, 'logout']
 
 // Endpoint yang bisa diakses tanpa autentikasi
 Route::get('/jobs', [JobController::class, 'index']);  
+Route::get('/jobs/all', [JobController::class, 'allJobs']);  
 Route::get('/jobs/{id}', [JobController::class, 'show']);  
 
 // group routes authentication jobs (hanya untuk user terautentikasi)
