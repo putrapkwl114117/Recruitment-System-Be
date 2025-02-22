@@ -1,5 +1,12 @@
 Berikut adalah template dokumentasi untuk file `README.md` pada repositori GitHub proyek Laravel 11 menggunakan MySQL:
 
+
+Docomnetasi Api Endpoin
+link documentasi: https://documenter.getpostman.com/view/32171174/2sAYdbMXgk
+
+![image](https://github.com/user-attachments/assets/ad3009f9-57c5-4e3b-a6cb-aa1df3c60174)
+
+
 ```markdown
 # Laravel 11 Project with MySQL
 
