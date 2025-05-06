@@ -5,16 +5,16 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Job;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class JobController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $userId = $request->user_id;
-        $jobs = Job::where('user_id', $userId)->get(); 
+        $jobs = Job::all();
         return response()->json($jobs);
     }
+
     public function show($id)
     {
         $job = Job::findOrFail($id);
@@ -23,29 +23,42 @@ class JobController extends Controller
 
     // Menambahkan pekerjaan baru
     public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'salary' => 'required|numeric',
-            'category' => 'required|string',
-            'type' => 'required|string',
-            'location' => 'required|string',
-        ]);
-        $job = Job::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'salary' => $request->salary,
-            'category' => $request->category,
-            'type' => $request->type,
-            'location' => $request->location,
-            'user_id' => Auth::id(), 
-        ]);
+{
+    $validator = Validator::make($request->all(), [
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'salary' => 'required|numeric',
+        'category' => 'required|string',
+        'location' => 'required|string',
+        'type' => 'required|string',
+        'experience_level' => 'required|in:Junior,Middle,Senior',
+        'skills' => 'required|string',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    if ($validator->fails()) {
         return response()->json([
-            'message' => 'Job created successfully',
-            'job' => $job,
-        ], 201);
+            'message' => 'Lengkapi Data Lowongan',
+            'errors' => $validator->errors(),
+        ], 422);
     }
+
+    $data = $validator->validated();
+
+    // Upload image jika ada
+     if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $path = $image->store('jobs', 'public');
+        $data['image'] = 'storage/' . $path;
+    }
+
+    $job = Job::create($data);
+
+    return response()->json([
+        'message' => 'Job created successfully',
+        'job' => $job,
+    ], 201);
+}
 
 
     public function allJobs()
@@ -54,37 +67,51 @@ class JobController extends Controller
         return response()->json($jobs);
     }
 
-    // Mengupdate pekerjaan yang sudah ada
     public function update(Request $request, $id)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'salary' => 'required|numeric',
-            'category' => 'required|string',
-            'type' => 'required|string',
-            'location' => 'required|string',
-        ]);
-        $job = Job::findOrFail($id);
-        $job->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            'salary' => $request->salary,
-            'category' => $request->category,
-            'type' => $request->type,
-            'location' => $request->location,
-        ]);
+{
+    $validator = Validator::make($request->all(), [
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'salary' => 'required|numeric',
+        'category' => 'required|string',
+        'location' => 'required|string',
+        'type' => 'required|string',
+        'experience_level' => 'required|in:Junior,Middle,Senior',
+        'skills' => 'required|string',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    if ($validator->fails()) {
         return response()->json([
-            'message' => 'Job updated successfully',
-            'job' => $job,
-        ], 200);
+            'message' => 'Lengkapi Data Lowongan',
+            'errors' => $validator->errors(),
+        ], 422);
     }
 
-    // Menghapus pekerjaan
+    $data = $validator->validated();
+
+    // Handle upload image jika ada
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $path = $image->store('jobs', 'public');
+        $data['image'] = 'storage/' . $path;
+    }
+
+    $job = Job::findOrFail($id);
+    $job->update($data);
+
+    return response()->json([
+        'message' => 'Job updated successfully',
+        'job' => $job,
+    ], 200);
+}
+
+
     public function destroy($id)
     {
         $job = Job::findOrFail($id);
         $job->delete();
+
         return response()->json([
             'message' => 'Job deleted successfully',
         ], 200);

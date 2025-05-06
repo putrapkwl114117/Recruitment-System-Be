@@ -12,16 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jobs', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->decimal('salary', 10, 2);
-            $table->string('category');
-            $table->string('location');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
-        });
-    }
+        $table->id();
+        $table->string('title');
+        $table->text('description');
+        $table->decimal('salary', 10, 2);
+        $table->string('category');
+        $table->string('location');
+        $table->string('type');
+        $table->enum('experience_level', ['Junior', 'Middle', 'Senior']);
+        $table->text('skills');
+         $table->string('image')->nullable();
+        $table->timestamps();
+    });
+            
+    }   
 
     /**
      * Reverse the migrations.

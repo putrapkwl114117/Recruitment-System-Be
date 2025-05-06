@@ -11,7 +11,6 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
-    // Register
     public function register(Request $request)
     {
         $request->validate([
@@ -24,16 +23,16 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'user',
         ]);
 
-        // Generate token JWT setelah registrasi
-        $token = JWTAuth::fromUser($user);
         return response()->json([
             'message' => 'User registered successfully',
             'user' => $user,
-            'token' => $token,
+            'role' => $user->role,
         ], 201);
     }
+
 
     // Login
     public function login(Request $request)
@@ -57,6 +56,7 @@ class AuthController extends Controller
             'token' => $token, 
             'name' => $user->name, 
             'user_id' => $user->id,
+            'role' => $user->role,
         ], 200);
     }
 
