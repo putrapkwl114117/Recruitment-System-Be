@@ -15,6 +15,11 @@ Route::get('/jobs', [JobController::class, 'index']);
 Route::get('/jobs/all', [JobController::class, 'allJobs']);  
 Route::get('/jobs/{id}', [JobController::class, 'show']);  
 
+Route::get('/applications/{id}', [ApplicationController::class, 'show']);
+Route::get('/applications', [ApplicationController::class, 'index']);
+Route::get('/jobs/{jobId}/applications', [ApplicationController::class, 'getByJob']);
+Route::delete('/applications/{id}', [ApplicationController::class, 'destroy']);
+
 // Protected job endpoints
 Route::middleware('jwt.auth')->group(function () {
     // Logout
@@ -27,10 +32,6 @@ Route::middleware('jwt.auth')->group(function () {
 
     // Job Application
     Route::post('/applications', [ApplicationController::class, 'store']);
-    Route::get('/applications/{id}', [ApplicationController::class, 'show']);
-    Route::get('/applications', [ApplicationController::class, 'index']);
-    Route::get('/jobs/{jobId}/applications', [ApplicationController::class, 'getByJob']);
-    Route::delete('/applications/{id}', [ApplicationController::class, 'destroy']);
 
 
 
